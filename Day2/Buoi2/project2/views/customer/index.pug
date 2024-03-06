@@ -1,0 +1,43 @@
+doctype html 
+html   
+    head 
+        title Customer List 
+        link(rel="stylesheet", href="")
+
+    body 
+        h3 
+            a(href='/customer/create') Create New
+        h1 Customer List
+        table 
+            thead 
+                tr 
+                    td Id
+                    td Name
+                    td Email
+                    td Phone
+                    td Action                    
+            tbody 
+                if customers != ''
+                    each item in customers                                                
+                        tr  
+                            td= item.id 
+                            td= item.name 
+                            td= item.email 
+                            td=item.phone                                
+                            td
+                                h3(onclick=`deleteCustomer(${item.id})`) 
+                                   
+                else 
+                    tr 
+                        td(colspane= '4') No Data
+                    
+script.
+  function deleteCustomer(id) {
+      const xhttp = new XMLHttpRequest();
+
+    xhttp.open("POST", `http://localhost:3000/customer/delete/${id}`);
+    xhttp.send();
+
+
+    console.log('Hello, world!',id);
+  }
